@@ -65,12 +65,9 @@
         .profiles-container {
             display: flex;
             gap: 20px;
-            justify-content: center;
+            justify-content: center; /* Centrar los bloques */
             align-items: center;
-            max-width: 100%;
-            overflow: hidden;
-            position: relative;
-            margin-bottom: 40px; /* Espacio para el desplazamiento */
+            margin-bottom: 40px;
         }
 
         .profile-card {
@@ -187,16 +184,11 @@
     </div>
 
     <!-- Sección de perfiles -->
-    <div class="profiles-container">
-        <div class="profile-card" id="player1" draggable="true">
-            Lionel Messi
-        </div>
-        <div class="profile-card" id="player2" draggable="true">
-            Cristiano Ronaldo
-        </div>
-        <div class="profile-card" id="player3" draggable="true">
-            Neymar Jr
-        </div>
+    <div class="profiles-container" id="profiles-container">
+        <!-- Bloques vacíos -->
+        <div class="profile-card" draggable="true"></div>
+        <div class="profile-card" draggable="true"></div>
+        <div class="profile-card" draggable="true"></div>
     </div>
 
     <!-- Sección "Jugador de interés" -->
