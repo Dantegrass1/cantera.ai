@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cantera.ai</title>
+    <meta name="description" content="Bienvenido a Cantera.ai, tu fuente de información y análisis de fútbol.">
+    <style>
+        /* Estilos generales */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4; /* Fondo claro */
+            color: #333; /* Texto oscuro */
+        }
+
+        /* Encabezado */
+        header {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin: 0;
+        }
+
+        /* Logo de Cantera.ai */
+        .cantera-logo {
+            width: 150px; /* Tamaño del logo */
+            height: auto;
+            margin: 20px 0;
+        }
+
+        /* Barra de búsqueda */
+        .search-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .search-container h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .search-container input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            border: 2px solid #333;
+            border-radius: 25px; /* Bordes redondeados */
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .search-container input[type="text"]::placeholder {
+            color: #999;
+        }
+
+        /* Sección de perfiles */
+        .profiles-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            max-width: 100%;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 40px; /* Espacio para el desplazamiento */
+        }
+
+        .profile-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            width: 200px; /* Ancho fijo */
+            height: 200px; /* Altura fija */
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: grab; /* Cambia el cursor al arrastrar */
+        }
+
+        .profile-card:active {
+            cursor: grabbing; /* Cambia el cursor al agarrar */
+        }
+
+        .profile-card.dragging {
+            opacity: 0.5; /* Reduce la opacidad al arrastrar */
+        }
+
+        /* Pie de página (Powered by Deepseek) */
+        .powered-by {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .powered-by img {
+            width: 150px; /* Tamaño del logo de Deepseek */
+            height: auto;
+        }
+
+        /* Sección "Jugador de interés" */
+        .interest-container {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 100px; /* Espacio para el desplazamiento */
+        }
+
+        .interest-container h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .interest-box {
+            background-color: #fff;
+            border: 2px dashed #333;
+            border-radius: 10px;
+            padding: 20px;
+            width: 200px; /* Mismo tamaño que los bloques de jugadores */
+            height: 200px; /* Mismo tamaño que los bloques de jugadores */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1rem;
+            color: #777;
+        }
+
+        .interest-box.drag-over {
+            background-color: #f0f0f0; /* Cambia el color al arrastrar sobre el cuadro */
+        }
+
+        /* Pie de página (Powered by Deepseek y Developed by Blackhole) */
+        .footer {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .footer img {
+            width: 150px; /* Tamaño del logo de Deepseek y Blackhole */
+            height: auto;
+        }
+
+        /* Título de jugadores populares */
+        .popular-players-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Encabezado -->
+    <header>
+        <h1>Bienvenido a Cantera.ai</h1>
+    </header>
+
+    <!-- Logo de Cantera.ai -->
+    <img src="soccer-ball.png" alt="Logo de Cantera.ai" class="cantera-logo">
+
+    <!-- Barra de búsqueda -->
+    <div class="search-container">
+        <h2>Encuentra al jugador ideal</h2>
+        <input type="text" id="search-input" placeholder="En que tipo de jugador pensas...">
+    </div>
+
+    <!-- Título de jugadores populares -->
+    <div class="popular-players-title">
+        Jugadores Populares
+    </div>
+
+    <!-- Sección de perfiles -->
+    <div class="profiles-container">
+        <div class="profile-card" id="player1" draggable="true">
+            Lionel Messi
+        </div>
+        <div class="profile-card" id="player2" draggable="true">
+            Cristiano Ronaldo
+        </div>
+        <div class="profile-card" id="player3" draggable="true">
+            Neymar Jr
+        </div>
+    </div>
+
+    <!-- Sección "Jugador de interés" -->
+    <div class="interest-container">
+        <h2>Jugador de interés</h2>
+        <div class="interest-box" id="interest-box">
+            Arrastra un jugador aquí
+        </div>
+    </div>
+
+    <div class="powered-by">
+        <span>Powered by</span>
+        <img src="deepseeklogo.png" alt="Logo de Deepseek">
+    </div>
+
+    <!-- Pie de página (Powered by Deepseek y Developed by Blackhole) -->
+    <div class="footer">
+        <span>Developed by</span>
+        <a href="blackhole.html">
+            <img src="logo.png" alt="Logo de Blackhole">
+        </a>
+    </div>
+
+    <script>
+        // Lógica para arrastrar y soltar (drag and drop)
+        const interestBox = document.getElementById("interest-box");
+        const profileCards = document.querySelectorAll(".profile-card");
+
+        // Eventos para los bloques de jugadores
+        profileCards.forEach(card => {
+            card.addEventListener("dragstart", (e) => {
+                e.dataTransfer.setData("text/plain", e.target.id); // Guarda el ID del bloque
+                e.target.classList.add("dragging"); // Aplica estilo al arrastrar
+            });
+
+            card.addEventListener("dragend", (e) => {
+                e.target.classList.remove("dragging"); // Restaura el estilo al soltar
+            });
+        });
+
+        // Eventos para el cuadro de interés
+        interestBox.addEventListener("dragover", (e) => {
+            e.preventDefault(); // Permite soltar el elemento
+            interestBox.classList.add("drag-over"); // Cambia el estilo al arrastrar sobre el cuadro
+        });
+
+        interestBox.addEventListener("dragleave", () => {
+            interestBox.classList.remove("drag-over"); // Restaura el estilo al salir
+        });
+
+        interestBox.addEventListener("drop", (e) => {
+            e.preventDefault();
+            const playerId = e.dataTransfer.getData("text/plain"); // Obtiene el ID del bloque
+            const playerCard = document.getElementById(playerId); // Obtiene el bloque arrastrado
+            interestBox.innerHTML = playerCard.innerHTML; // Muestra el contenido del bloque
+            interestBox.classList.remove("drag-over"); // Restaura el estilo
+        });
+    </script>
+</body>
+</html>
